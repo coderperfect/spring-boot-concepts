@@ -6,6 +6,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 
 import com.mrityunjoy.springbootconcepts.model.Student;
@@ -55,6 +56,10 @@ public class SpringBootConceptsApplication {
 		Student godAgain = annotationConfigApplicationContext.getBean("god", Student.class);
 
 		log.info(String.format("Name godAgain: %s", godAgain.getName()));
+		
+		Student never = annotationConfigApplicationContext.getBean("never", Student.class);
+
+		log.info(String.format("Name never: %s", never.getName()));
 	}
 
 	@Bean
@@ -80,5 +85,14 @@ public class SpringBootConceptsApplication {
 		Student god = new Student();
 		god.setName("god");
 		return god;
+	}
+	
+	@Bean
+	@Lazy
+	Student never() {
+		log.info("Creating never bean");
+		Student never = new Student();
+		never.setName("never");
+		return never;
 	}
 }
